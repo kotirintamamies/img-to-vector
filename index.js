@@ -6,19 +6,19 @@ var program = require('commander')
 //configure these [red, green, blue] for your photo before running
 var colorThreshholds = [180, 180, 180]
 
-start(tr);
-
 program
-  .arguments('<inputfile>, [outputfile]')
-  .action(function(inputfile, outputfile)
-  {
-    start(thresh)
-  }
-)
+  .arguments('<inputfile> <outputfile> <r> <g> <b>')
+  .action(function(inputfile, outputfile, r, g, b){
+  colorThreshholds = [r, g, b];
+  console.log(inputfile);
+  start(inputfile, outputfile);
+  })
 
-function start(thresh, input, output)
+program.parse(process.argv);
+
+
+function start(input, output)
 {
-
         gm(input)
           .whiteThreshold(colorThreshholds[0],colorThreshholds[1],colorThreshholds[2], 1)
           .blackThreshold(colorThreshholds[0]+1,colorThreshholds[1]+1,colorThreshholds[2]+1, 0)
