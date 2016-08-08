@@ -1,18 +1,25 @@
 var gm = require('gm');
 var fs = require('fs');
-var request = require('request');
+var Potrace = require('potrace');
 
-start();
-function start()
+var tr = 145;
+start(tr);
+function start(thresh)
 {
 
-        gm('image.png')
-          .whiteThreshold(160,160,160)
-          .blackThreshold(160,160,160)
-          .write(fs.createWriteStream('image.jpg'), function(err){console.log(err);})
-
-
-
-
-
+        gm('image.jpg')
+          .whiteThreshold(thresh,thresh,thresh, 1)
+          .blackThreshold(thresh+1,thresh+1,thresh+1, 0)
+          .write('image2.jpg', function(err){
+            if(!err)
+            {
+              Potrace.loadImage('image2.jpg', function(err)
+              {
+                Potrace.process(function()
+                {
+                  fs.writeFile("valmis.svg", Potrace.getSVG(1), function(err){}) 
+                })
+              })
+            }
+          })
 }

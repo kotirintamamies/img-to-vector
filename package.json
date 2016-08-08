@@ -18,6 +18,7 @@
   "homepage": "https://github.com/kotirintamamies/img-to-vector#readme",
   "dependencies": {
     "gm": "^1.23.0",
+    "potrace": "^1.1.0",
     "request": "^2.74.0"
   }
 }
